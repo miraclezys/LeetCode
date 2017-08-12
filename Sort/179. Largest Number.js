@@ -80,4 +80,49 @@ function selectSort(arr) {
   return arr;
 }
 
-console.log(selectSort([1, 0, 9, 7, 4, 7, 9, 8], 0, 7));
+function mergeArray(arr1, arr2) {
+  let arr = [];
+  while(arr1.length > 0 && arr2.length > 0) {
+    if(arr1[0] < arr2[0]) {
+      arr.push(arr1.shift());
+    }
+    else {
+      arr.push(arr2.shift());
+    }
+  }
+
+  return arr.concat(arr1, arr2);
+}
+
+function mergeSort(arr) {
+  let len = arr.length;
+  if(len > 1) {
+    let min = parseInt(len / 2);
+    let arr1 = arr.slice(0, min);
+    let arr2 = arr.slice(min);
+    return mergeArray(mergeSort(arr1), mergeSort(arr2));
+  }
+  return arr;
+}
+
+function shellSort(arr) {
+  let n = arr.length;
+  for(let gap = parseInt(n / 2); gap > 0; gap = parseInt(gap / 2)) {
+    for(let i=0; i<gap; i++) {
+      for(let j=i+gap; j<n; j+=gap) {
+        if(arr[j] < arr[j-gap]) {
+          let temp = arr[j];
+          let k = j - gap;
+          while(k >=0 && arr[k] > temp) {
+            arr[k+gap] = arr[k];
+            k -= gap;
+          }
+          arr[k+gap] = temp;
+        }
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(shellSort([1, 0, 9, 7, 4, 7, 9, 8]));
