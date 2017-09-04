@@ -125,4 +125,38 @@ function shellSort(arr) {
   return arr;
 }
 
-console.log(shellSort([1, 0, 9, 7, 4, 7, 9, 8]));
+function headAdjust(arr, pos, len) {
+  let temp = arr[pos];
+  let j = pos * 2 + 1;
+
+  while(j < len) {
+    if(j + 1 < len && arr[j] > arr[j+1]) {
+      j += 1;
+    }
+
+    if(arr[j] >= temp) {
+      break;
+    }
+
+    arr[pos] = arr[j];
+    pos = j;
+    j = pos * 2 + 1;
+  }
+  arr[pos] = temp;
+}
+
+function headSort(arr) {
+  for(let i=parseInt(arr.length/2); i>=0; i--) {
+    headAdjust(arr, i);
+  }
+  console.log(arr);
+  for(let i=arr.length-1; i>0; i--) {
+    let temp = arr[i];
+    arr[i] = arr[0];
+    arr[0] = temp;
+    headAdjust(arr, 0, i);
+  }
+  return arr;
+}
+
+console.log(headSort([1, 0, 9, 7, 4, 7, 9, 8]));
