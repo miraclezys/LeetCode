@@ -113,3 +113,87 @@ function selectSort(arr) {
 }
 ```
 
+
+
+## 快速排序
+
+快速排序的思想：
+
+1. 从数列中找出一个数作为基准数
+2. 把数列中比该基准数大的数放在该数的右边，比比基准数小的数放在该数的左边
+3. 再对左右区间重复第二步，直到各区间只有一个数
+
+```javascript
+function quickSort(arr, l, r) {
+  if(l < r) {
+    let i = l, j = r, num = arr[l];
+    while(i < j) {
+      while(i < j && arr[j] > num) {
+        j -= 1;
+      }
+      if(i < j) {
+        arr[i] = arr[j];
+        i += 1;
+      }
+      while(i < j && arr[i] < num) {
+        i += 1;
+      }
+      if(i < j) {
+        arr[j] = arr[i];
+        j -= 1;
+      }
+    }
+    arr[i] = num;
+    quickSort(arr, l, i-1);
+    quickSort(arr, i+1, r);
+  }
+  return arr;
+}
+```
+
+
+
+## 冒泡排序
+
+冒泡排序的思想：
+
+1. 比较相邻两个数的大小，如果前面的数大于后面的数，两个数位置交换
+2. 这样对数组第0个数据到数据第N-1个数据进行一次遍历后，数组最后的一个数据就是该数组最大的数据
+3. 即每次遍历后，最大的数就在数组的最后
+
+```javascript
+function bubbleSort(arr) {
+  for(let i=0; i<arr.length; i++) {
+    for(let j=1; j<arr.length -i; j++) {
+      if(arr[j-1] > arr[j]) {
+        let temp = arr[j-1];
+        arr[j-1] = arr[j];
+        arr[j] = temp;
+      }
+    }
+  }
+  return arr;
+}
+```
+
+优化，当flag标志位的值为0未被赋值时，说明数组已排序完毕
+
+```javascript
+function bubbleSort2(arr) {
+  let flag = arr.length;
+  while(flag) {
+    let k = flag;
+    flag = 0;
+    for(let i=1; i<k; i++) {
+      if(arr[i-1] > arr[i]) {
+        let temp = arr[i-1];
+        arr[i-1] = arr[i];
+        arr[i] = temp;
+        flag = i;
+      }
+    }
+  }
+  return arr;
+}
+```
+
