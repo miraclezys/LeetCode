@@ -51,6 +51,32 @@ function quickSort(arr, l, r) {
   return arr;
 }
 
+function quickSort2(arr, l, r) {
+  if(l < r) {
+    let i = l, j = r, num = arr[l];
+    while(i < j) {
+      while(i < j && arr[j] > num) {
+        j -= 1;
+      }
+      if(i < j) {
+        arr[i] = arr[j];
+        i += 1;
+      }
+      while(i < j && arr[i] < num) {
+        i += 1;
+      }
+      if(i < j) {
+        arr[j] = arr[i];
+        j -= 1;
+      }
+    }
+    arr[i] = num;
+    quickSort2(arr, l, i-1);
+    quickSort2(arr, i+1, r);
+  }
+  return arr;
+}
+
 function insertSort(arr) {
   for(let i=1; i<arr.length; i++) {
     if(arr[i-1] > arr[i]) {
@@ -65,7 +91,25 @@ function insertSort(arr) {
   return arr;
 }
 
-function selectSort(arr) {
+function insertSort2(arr) {
+  for(let i=1; i<arr.length; i++) {
+    if(arr[i-1] > arr[i]) {
+      let temp = arr[i];
+      let j;
+      for(j=i-1; j>=0 && arr[j]>temp; j--) {
+        if(arr[j] > temp) {
+          arr[j+1] = arr[j];
+        }
+      }
+      arr[j+1] = temp;
+    }
+  }
+  return arr;
+}
+
+
+
+function selectSort2(arr) {
   for(let i=0; i<arr.length; i++) {
     let min = i;
     for(let j=i+1; j<arr.length; j++) {
@@ -190,4 +234,34 @@ function heapSort2(arr) {
   return arr;
 }
 
-console.log(heapSort2([1, 0, 9, 7, 4, 7, 9, 8]));
+function bubbleSort(arr) {
+  for(let i=0; i<arr.length; i++) {
+    for(let j=1; j<arr.length -i; j++) {
+      if(arr[j-1] > arr[j]) {
+        let temp = arr[j-1];
+        arr[j-1] = arr[j];
+        arr[j] = temp;
+      }
+    }
+  }
+  return arr;
+}
+
+function bubbleSort2(arr) {
+  let flag = arr.length;
+  while(flag) {
+    let k = flag;
+    flag = 0;
+    for(let i=1; i<k; i++) {
+      if(arr[i-1] > arr[i]) {
+        let temp = arr[i-1];
+        arr[i-1] = arr[i];
+        arr[i] = temp;
+        flag = i;
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(bubbleSort2([1, 0, 9, 7, 4, 7, 9, 8], 0, 8-1));
