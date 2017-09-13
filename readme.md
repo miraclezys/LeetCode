@@ -197,3 +197,46 @@ function bubbleSort2(arr) {
 }
 ```
 
+
+
+## 归并排序
+
+归并排序采用的是分治的思想。
+
+如何将两个有序序列合并？
+
+分别比较两个序列中的第一个数，谁小先取谁，然后在原数组中删除该数，再进行同样的比较，直到其中一个数组为空，那么将另一个数组剩下的数取出。
+
+那么如果需要对一个数组排序，首先将数组分成两组，以此类推，直到分出来的小组只有一个数据时，我们认为该小组已经有序了，然后我们就将相邻两个有序小组合并。
+
+思想：首先递归的进行分组，然后合并序列
+
+```javascript
+function mergeArray(arr1, arr2) {
+  let arr = [];
+  while(arr1.length > 0 && arr2.length > 0) {
+    if(arr1[0] < arr2[0]) {
+      arr.push(arr1.shift());
+    }
+    else {
+      arr.push(arr2.shift());
+    }
+  }
+
+  return arr.concat(arr1, arr2);
+}
+
+function mergeSort(arr) {
+  let len = arr.length;
+  if(len > 1) {
+    let min = parseInt(len / 2);
+    let arr1 = arr.slice(0, min);
+    let arr2 = arr.slice(min);
+    return mergeArray(mergeSort(arr1), mergeSort(arr2));
+  }
+  return arr;
+}
+```
+
+
+
