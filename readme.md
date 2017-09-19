@@ -240,3 +240,29 @@ function mergeSort(arr) {
 
 
 
+## 希尔排序
+
+希尔排序的思想是将带排序序列分割成若干子序列分别进行插入排序，然后依次将子序列每组数量增大进行排序，当子序列的长度为原本序列的长度（增量为1），即对全体进行一次插入排序。因为直接插入排序在元素基本有序时效率是很高的，所以希尔排序在时间效率上较好
+
+```javascript
+function shellSort(arr) {
+  let n = arr.length;
+  for(let gap = parseInt(n / 2); gap > 0; gap = parseInt(gap / 2)) {
+    for(let i=0; i<gap; i++) {
+      for(let j=i+gap; j<n; j+=gap) {
+        if(arr[j] < arr[j-gap]) {
+          let temp = arr[j];
+          let k = j - gap;
+          while(k >=0 && arr[k] > temp) {
+            arr[k+gap] = arr[k];
+            k -= gap;
+          }
+          arr[k+gap] = temp;
+        }
+      }
+    }
+  }
+  return arr;
+}
+```
+
