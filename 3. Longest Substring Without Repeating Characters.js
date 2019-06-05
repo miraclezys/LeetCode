@@ -30,16 +30,16 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
 var lengthOfLongestSubstring = function(s) {
     let result = 0;
     let index = 0;
-    let map = {};
+    let map = new Map();
 
     for(let j=0; j<s.length; j++) {
-        index = map[s[j]] && map[s[j]] > index ? map[s[j]] : index;
+        index = map.has(s[j]) && map.get(s[j]) > index ? map.get(s[j]) : index;
 
         if (j + 1 - index > result) {
             result = j + 1 - index;
         }
 
-        map[s[j]] = j + 1;
+        map.set(s[j], j + 1);
     }
 
     return result;
