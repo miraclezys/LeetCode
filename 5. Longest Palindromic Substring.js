@@ -16,6 +16,8 @@ Input: "cbbd"
 Output: "bb"
  */
 
+/* Approach 4: Expand Around Center */
+
  /**
  * @param {string} s
  * @return {string}
@@ -52,4 +54,26 @@ function expandAroundCenter (s, left, right) {
     return r - l - 1;
 }
 
-console.log(longestPalindrome('abbc'))
+/* Approach 3: Dynamic Programming */
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome2 = function(s) {
+    let dp = [];
+    let result = '';
+
+    for(let i = 0; i < s.length; i++) {
+        for(let j = i; j >= 0; j--) {
+            if (!dp[i]) dp[i] = [];
+
+            dp[i][j] = s[i] === s[j] && (i - j + 1 < 3 || dp[i-1][j+1]);
+
+            if (dp[i][j] && (result.length === 0 || i - j + 1 > result.length)) {
+                result = s.slice(j, i+1);
+            }
+        }
+    }
+
+    return result;
+};
