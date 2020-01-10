@@ -60,7 +60,6 @@ function duplicate2(numbers, len) {
     while (start <= end) {
         let middle = parseInt((start + end) / 2);
         let count = countRange(numbers, start, middle);
-        console.log(start, middle, end, count);
 
         if (start === end) {
             if (count > 1) {
